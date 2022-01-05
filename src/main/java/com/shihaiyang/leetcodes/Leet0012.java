@@ -16,6 +16,10 @@ public class Leet0012 {
     }
 }
 
+/**
+ * 贪心算法.
+ * 即每次选择最大的。
+ */
 class Solution00122 {
     public String intToRoman(int num) {
         Integer[] romanInt = new Integer[]{1000,900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};

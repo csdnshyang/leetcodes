@@ -11,7 +11,8 @@ public class Leetcode0015 {
 }
 
 /**
- * 
+ * 三数之和
+ * 排序+三指针+去重
  */
 class Solution0015 {
     public List<List<Integer>> threeSum(int[] nums) {

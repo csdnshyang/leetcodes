@@ -13,6 +13,7 @@ public class Leetcode0018 {
  四指针
  双层循环加后面双指针。
  n^3的时间复杂度
+ 去掉map，使用比较+移动指针方式效率更高
  */
 class Solution0018 {
     public List<List<Integer>> fourSum(int[] nums, int target) {

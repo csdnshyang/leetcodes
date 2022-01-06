@@ -3,7 +3,6 @@ package com.shihaiyang.leetcodes;
 public class Leetcode0019 {
     public static void main(String[] args) {
         Solution0019 solution0019 = new Solution0019();
-        solution0019.removeNthFromEnd();
     }
 }
 /**

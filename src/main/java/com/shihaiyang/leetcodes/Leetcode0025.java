@@ -13,41 +13,54 @@ public class Leetcode0025 {
 
 写了半天，没写出来。
 看别人结题思路，用栈。好像是简单一点。
-*/
+自定义
 
+----
+递归实现下试试
+递归方法返回一个newHead。
+方法中实现链表反转。
+并且newTail指向递归方法
+如果不超过k，直接返回本身。结束递归。
+*/
+/**
+执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+内存消耗：38.8 MB, 在所有 Java 提交中击败了24.02%的用户 通过
+测试用例：62 / 62
+*/
 class Solution0025 {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode left=null, right=null, leftPre=null, rightNext=null;
+        if (k<=1){
+            return head;
+        }
+        return reverseGroup(head, k);
+    }
+    public ListNode reverseGroup(ListNode head, int k){
+        ListNode subNewHead=null, subNewTail=null, newHead=null;
         int notEnough=0;
-        rightNext=head;
-        for(int i=0;i<k;i++){
-            if (rightNext==null){
+        subNewTail = head;
+        subNewHead = head;
+        // 2的话，只右移一次即可
+        for(int i=0;i<k-1;i++){
+            subNewHead = subNewHead.next;
+            if(subNewHead== null){
                 notEnough=1;
                 break;
             }
-            rightNext=rightNext.next;
         }
-        leftPre=rightNext;
-        while (notEnough == 0) {
-            left= left==null ? head : left;
-            right=left.next;
-            for(int i=0;i<k;i++){
-                left.next=leftPre;
-                leftPre=left;
-                left = right;
-                right = right.next;
-            }
-            rightNext=right.next;
-
-            // 判断是否够n个。找到rightNext节点
-            for(int i=0;i<k;i++){
-                if (rightNext==null){
-                    notEnough=1;
-                    break;
-                }
-                rightNext=rightNext.next;
-            }
+        if (notEnough == 1){
+            return head;
         }
-        return head;
+        newHead = subNewHead.next;
+        // 开始反转
+        ListNode first = head;
+        ListNode second = first.next;
+        for(int i=0;i<k-1;i++){
+            ListNode temp = first;
+            first=second;
+            second = second.next;
+            first.next=temp;
+        }
+        subNewTail.next=reverseGroup(newHead, k);
+        return subNewHead;
     }
 }

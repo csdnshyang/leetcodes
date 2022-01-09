@@ -7,6 +7,7 @@ import java.util.Map;
 /**
  * 请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。
  */
+ // 146. LRU 缓存.[HashMap+doubly-linked list].
 public class Leetcode0146 {
     public static void main(String[] args) {
         LRUCache lRUCache = new LRUCache(2);

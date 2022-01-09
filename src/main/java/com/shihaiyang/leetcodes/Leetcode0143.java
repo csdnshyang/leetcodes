@@ -16,6 +16,7 @@
 翻转链表：翻转中间位置右侧链表。
 拼接两个链表
  */
+// 143. 重排链表.[快慢指针+翻转链表+拼接链表].
 class Solution043 {
     public void reorderList(ListNode head) {
         if(head == null){

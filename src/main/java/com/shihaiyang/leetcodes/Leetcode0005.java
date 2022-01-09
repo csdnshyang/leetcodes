@@ -1,5 +1,5 @@
 // 05. 最长回文子串.[双指针].
-// 修改账号
+// 修改账号csdnshyang
 class Solution {
     public String longestPalindrome(String s) {
       if(s.length() <= 1){

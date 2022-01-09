@@ -1,7 +1,7 @@
 package com.shihaiyang.leetcodes;
 
 /**
-19. 删除链表的倒数第 N 个结点
+0019. 删除链表的倒数第 N 个结点
 */
 public class Leetcode0019 {
     public static void main(String[] args) {

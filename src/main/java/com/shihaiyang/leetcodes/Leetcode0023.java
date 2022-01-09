@@ -12,7 +12,7 @@ import java.util.*;
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-
+// 23. 合并K个升序链表.[典型小顶堆积].
 public class Leetcode0023 {
     public static void main(String[] args) {
 

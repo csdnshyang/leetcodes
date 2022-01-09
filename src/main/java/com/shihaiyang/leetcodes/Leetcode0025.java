@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-
+// 25. K 个一组翻转链表.[递归+翻转链表+返回NewHead].
 public class Leetcode0025 {
 }
 /*

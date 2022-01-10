@@ -34,22 +34,14 @@ class Solution0215 {
 }
 
 /**
- * 再加一个快排.
+ * 快速排序.
  */
 class Solution02152 {
-    /**
-     * 从大到小排列
-     *
-     * @param nums
-     * @param k
-     * @return
-     */
     public int findKthLargest(int[] nums, int k) {
         partition(nums, 0, nums.length - 1);
         int kth = nums[k];
         return kth;
     }
-
     // 从大到小排列
     public void partition(int[] nums, int low, int high) {
         // 小指针 >= 大指针 跳出

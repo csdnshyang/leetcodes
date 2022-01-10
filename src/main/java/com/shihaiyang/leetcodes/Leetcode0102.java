@@ -1,31 +1,34 @@
 
 package com.shihaiyang.leetcodes;
-// 102. 二叉树的层序遍历.[层次遍历+Map存储层次].
+// 102. 二叉树的层序遍历.[层次遍历+记录每层节点数-快了1ms].
 public class Leetcode0102 {
 }
+/**
+借助Map来存储层次
+其他思路:
+每一层开始之前，记录这一层的节点数.即queue.size().
+*/
 class Solution0102 {
   public List<List<Integer>> levelOrder(TreeNode root) {
     Queue<TreeNode> queue = new LinkedBlockingQueue<>();
-    Map<TreeNode, Integer> levelMap = new HashMap<>();
     List<List<Integer>> ret = new ArrayList<>();
     if(root != null){
       queue.add(root);
-      levelMap.put(root, 0);
+      int level=0;
       while(!queue.isEmpty()){
-        TreeNode poll = queue.poll();
-        int level = levelMap.get(poll);
-        if(ret.size()<= level){
-          ret.add(new ArrayList());
+        ret.add(new ArrayList());
+        int size = queue.size();
+        for(int i=0;i<size;i++){
+          TreeNode poll = queue.poll();
+          ret.get(level).add(poll.val);
+          if(poll.left != null){
+            queue.add(poll.left);
+          }
+          if(poll.right != null){
+            queue.add(poll.right);
+          }
         }
-        ret.get(level).add(poll.val);
-        if(poll.left != null){
-          queue.add(poll.left);
-          levelMap.put(poll.left, level+1);
-        }
-        if(poll.right != null){
-          queue.add(poll.right);
-          levelMap.put(poll.right, level+1);
-        }
+        level++;
       }
     }
     return ret;

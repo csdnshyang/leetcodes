@@ -1,15 +1,16 @@
 package com.shihaiyang.leetcodes;
 
 import java.util.PriorityQueue;
+import java.util.Random;
 
 // 215. 数组中的第K个最大元素.[1.大顶堆积+2.快速排序].
 public class Leetcode0215 {
     public static void main(String[] args) {
         Solution02152 solution02152 = new Solution02152();
-        int kthLargest = solution02152.findKthLargest(new int[]{3,2,1,5,6,4}, 2);
+        int kthLargest = solution02152.findKthLargest(new int[]{2,1}, 2);
         System.out.println(kthLargest);
         Solution0215 solution0215 = new Solution0215();
-        int kthLargest2 = solution0215.findKthLargest(new int[]{3,2,1,5,6,4}, 2);
+        int kthLargest2 = solution0215.findKthLargest(new int[]{2,1}, 2);
         System.out.println(kthLargest2);
     }
 }
@@ -46,17 +47,32 @@ class Solution0215 {
  */
 class Solution02152 {
     public int findKthLargest(int[] nums, int k) {
-        partition(nums, 0, nums.length - 1);
-        int kth = nums[k];
-        return kth;
-    }
-    // 从大到小排列
-    public void partition(int[] nums, int low, int high) {
-        // 小指针 >= 大指针 跳出
-        if(low>=high){
-            return;
+        int partition= partition(nums, 0, nums.length - 1);;
+        k=k-1;
+        while (true){
+            if (partition < k){
+                // 确定的partition 在目标K大左边, 排序右子序
+                partition=partition(nums, partition+1, nums.length-1);
+            } else if (partition > k) {
+                // 确定的partition 在目标K大右边，排序左子序
+                partition=partition(nums, 0, partition-1);
+            } else {
+                // 确定的partition 正是目标K大
+                return nums[partition];
+            }
         }
+    }
+    /**
+     * 返回确定的基准值索引。
+     * 可以比较确定的基准值索引和要求的第K大，来确定应该排左子序还是右子序。从而减少排序次数
+     */
+    public int partition(int[] nums, int low, int high) {
         // 基准值
+        int random = low;
+        if (low < high) {
+            random=new Random().ints(low, high).iterator().next();
+        }
+        swap(nums, random, low);
         int pivot=nums[low];
         int left=low,right=high;
         while(left<right){
@@ -77,8 +93,7 @@ class Solution02152 {
         // 基准值的准确位置. 得到 左侧>=基准，右侧<=基准
         // left可能等于low. 当右侧全部比基准小是,left不动.
         swap(nums, low, left);
-        partition(nums, low, left-1);
-        partition(nums, left+1, high);
+        return left;
     }
 
     public static void swap(int[] nums, int i, int j){

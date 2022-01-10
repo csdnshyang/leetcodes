@@ -5,9 +5,12 @@ import java.util.PriorityQueue;
 // 215. 数组中的第K个最大元素.[1.大顶堆积+2.快速排序].
 public class Leetcode0215 {
     public static void main(String[] args) {
-        Solution02152 solution0215 = new Solution02152();
-        int kthLargest = solution0215.findKthLargest(new int[]{3, 7,6,5,2}, 2);
+        Solution02152 solution02152 = new Solution02152();
+        int kthLargest = solution02152.findKthLargest(new int[]{3,2,1,5,6,4}, 2);
         System.out.println(kthLargest);
+        Solution0215 solution0215 = new Solution0215();
+        int kthLargest2 = solution0215.findKthLargest(new int[]{3,2,1,5,6,4}, 2);
+        System.out.println(kthLargest2);
     }
 }
 /**
@@ -18,18 +21,23 @@ public class Leetcode0215 {
  * 这根据用java一句话就实现了呢...
  * 大顶堆积
  * 优先队列
+ * 换个思路是维护len-k个大顶堆积。第K大，其实就是比后面的len-k个大。5个的第2大，那么就是比后面(5-2)个大,应该是容量=5-2+1=4个的堆顶
  */
 class Solution0215 {
     public int findKthLargest(int[] nums, int k) {
-        PriorityQueue<Integer> queue = new PriorityQueue<>((v1, v2) -> v2 - v1);
-        for (int i = 0; i < nums.length; i++) {
+        int len = nums.length-k+1;
+        PriorityQueue<Integer> queue = new PriorityQueue<>(len, (v1, v2) -> v2 - v1);
+        for (int i = 0; i < len; i++) {
             queue.add(nums[i]);
         }
-        int kth = 0;
-        for (int i = 0; i < k; i++) {
-            kth = queue.poll();
+        for (int i=len;i<nums.length;i++){
+            Integer peek = queue.peek();
+            if (peek > nums[i]){
+                queue.poll();
+                queue.add(nums[i]);
+            }
         }
-        return kth;
+        return queue.peek();
     }
 }
 

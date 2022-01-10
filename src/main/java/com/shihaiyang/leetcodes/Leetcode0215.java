@@ -44,6 +44,7 @@ class Solution0215 {
 
 /**
  * 快速排序.
+ * leetcode problem 0215. 数组中的第K个最大元素.[1.大顶堆积(优化了下堆的容量-快2ms)+2.快速排序(优化了排序次数+随机pivot-快了20ms)].
  */
 class Solution02152 {
     public int findKthLargest(int[] nums, int k) {

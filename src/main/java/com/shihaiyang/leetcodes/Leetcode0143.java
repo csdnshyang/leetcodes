@@ -1,3 +1,5 @@
+package com.shihaiyang.leetcodes;
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -17,7 +19,7 @@
 拼接两个链表
  */
 // 143. 重排链表.[快慢指针+翻转链表+拼接链表].
-class Solution043 {
+class Solution0143 {
     public void reorderList(ListNode head) {
         if(head == null){
             return;

@@ -1,15 +1,20 @@
+package com.shihaiyang.leetcodes;
+
 /**
 找到最大的高度
 两边分别计算。
  */
 // 42. 接雨水.[最大指针+双指针].
 // 有时候1ms,有时候0ms.
+public class Leetcode0042{
+
+}
 /**
 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
 内存消耗：38.2 MB, 在所有 Java 提交中击败了31.81%的用户
 切换邮箱
 */
-class Solution {
+class Solution0042 {
     public int trap(int[] height) {
       if(height.length<=2){
         return 0;

@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-// 198. 打家劫舍.[奇偶数+动态规划].
+// 198. 打家劫舍.[最值类动态规划].
 public class Leetcode0198 {
     public static void main(String[] args) {
         Solution0198 solution0198 = new Solution0198();

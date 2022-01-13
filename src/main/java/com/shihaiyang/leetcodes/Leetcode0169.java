@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // 0169. 多数元素.[MooreVote 1ms+Quick Sort 2ms+Map 16ms].
-//
+// https://leetcode-cn.com/problems/majority-element/solution/0169-duo-shu-yuan-su-moorevote-1msquick-ixosm/
 public class Leetcode0169 {
 }
 

@@ -1,6 +1,6 @@
-// 05. 最长回文子串.[双指针].
+// 0005. 最长回文子串.[双指针+两边扩散].
 // 修改账号csdnshyang.
-class Solution {
+class Solution0005 {
     public String longestPalindrome(String s) {
       if(s.length() <= 1){
           return s;

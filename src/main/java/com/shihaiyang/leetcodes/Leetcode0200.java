@@ -1,6 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-// 200. 岛屿数量.[DFS-深度优先遍历]
+// 0200. 岛屿数量.[DFS-深度优先遍历].
 
 /**
  * DFS(depth-first search) 深度优先遍历

@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-// 322. 零钱兑换.[典型动态规划].
+// 0322. 零钱兑换.[典型动态规划,最值类].
 public class Leetcode0322 {
     public static void main(String[] args) {
         Solution0322 solution0322 = new Solution0322();

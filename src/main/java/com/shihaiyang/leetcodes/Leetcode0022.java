@@ -2,7 +2,7 @@ package com.shihaiyang.leetcodes;
 
 import java.util.ArrayList;
 import java.util.List;
-// 22. 括号生成.[递归算法+两个int标记左右括号存量.100%].
+// 0022. 括号生成.[递归算法+两个int标记左右括号存量.0ms].
 /**
  * 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
  * 内存消耗：38.6 MB, 在所有 Java 提交中击败了32.34%的用户

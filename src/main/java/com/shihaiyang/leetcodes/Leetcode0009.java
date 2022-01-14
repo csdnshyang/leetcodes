@@ -1,7 +1,7 @@
 package com.shihaiyang.leetcodes;
 
 import java.util.Stack;
-// 09. 用两个栈实现队列.[一个pushStack+一个popStack].
+// 0009. 用两个栈实现队列.[一个pushStack+一个popStack].
 public class Leetcode0009 {
 
 }

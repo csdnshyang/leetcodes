@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-// 64. 最小路径和.[最值+计数类动态规划].
+// 0064. 最小路径和.[最值+计数类动态规划].
 public class Leetcode0064 {
     public static void main(String[] args) {
 

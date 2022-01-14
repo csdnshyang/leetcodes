@@ -1,6 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-// 152. 乘积最大子数组.[最值类动态规划+正负号判断].
+// 0152. 乘积最大子数组.[最值类动态规划(分别记录最大最小值,遇到负号最大变最小)+正负号判断].
 public class Leetcode0152 {
 }
 

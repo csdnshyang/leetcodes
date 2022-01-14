@@ -1,7 +1,7 @@
-package com.shihaiyang.leetcodes;
+package com.shihaiyang.offer;
 // Offer001. 整数除法.[减法1722ms].
 // https://leetcode-cn.com/problems/xoh6Oh/solution/jian-zhi-offer-ii-001-zheng-shu-chu-fa-j-0sts/
-public class LeetcodeOffer001 {
+public class Offer001 {
     public static void main(String[] args) {
         SolutionOffer001 solutionOffer001 = new SolutionOffer001();
         int divide = solutionOffer001.divide(7, 3);

@@ -4,7 +4,7 @@ package com.shihaiyang.leetcodes;
 找到最大的高度
 两边分别计算。
  */
-// 42. 接雨水.[最大指针+双指针].
+// 0042. 接雨水.[最大指针+双指针0ms].
 // 有时候1ms,有时候0ms.
 public class Leetcode0042{
 

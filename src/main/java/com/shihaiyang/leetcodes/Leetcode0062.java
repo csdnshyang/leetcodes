@@ -1,6 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-// 62. 不同路径.[计数类动态规划].
+// 0062. 不同路径.[计数类动态规划].
 public class Leetcode0062 {
     public static void main(String[] args) {
         Solution0062 solution0062 = new Solution0062();

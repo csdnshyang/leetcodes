@@ -1,6 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-// 11. 盛最多水的容器.[典型双指针].
+// 0011. 盛最多水的容器.[典型双指针].
 public class Leetcode0011 {
     public static void main(String[] args) {
         int[] height = new int[]{1,8,6,2,5,4,8,3,7};

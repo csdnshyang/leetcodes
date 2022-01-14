@@ -2,8 +2,10 @@ package com.shihaiyang.daily;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
-// 0373. 查找和最小的 K 对数字.[双指针].
+// 0373. 查找和最小的 K 对数字.[优先队列+多路归并].
+// https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/solution/373-cha-zhao-he-zui-xiao-de-k-dui-shu-zi-fkaq/
 public class Leetcode0373 {
     public static void main(String[] args) {
         Solution0373 solution0373 = new Solution0373();
@@ -40,31 +42,31 @@ public class Leetcode0373 {
  */
 
 /**
- * 双指针.
- * 想简单了..这个得回溯啊..
- * 优先队列..
+ * 优先队列+多路归并
+ * 在之前n个有序数组排序时用到过。忘却了...
+ * 就是把n个数组的第一个元素放入到优先队列中.
+ * 再while() 优先队列取出一个,是第k个数组中的元素，就把第k个数组中下一个元素入队.
+ * 这样保证每次取到的都是最小的.
+ *
+ * 这个题目也是一样的。两个数组元素之和就组成了一个矩阵
+ * 同一行向右都是有序的 (这个矩阵稍特殊,同一列向下也是有序的)
+ * 这样就可以看做多个数组前k个值. 如果取最小值，就是取所有数组首元素中的最小值. 就优先队列可以n*logN
+ * 整体思路就是把每个数组的首元素入队。
+ * 取出一个最小的元素，然后再从对应的数组上把下一个元素入队。循环这个过程
  */
 class Solution0373 {
     public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(nums1.length, (a, b) -> (nums1[a[0]] + nums2[a[1]]) - (nums1[b[0]] + nums2[b[1]]));
+        for (int i = 0; i < nums1.length; i++) {
+            priorityQueue.add(new int[]{i, 0});
+        }
+
         List<List<Integer>> ret = new ArrayList<>();
-        int i = 0, j = 0;
-        while (ret.size() < k) {
-            if (i == nums1.length-1 && j == nums2.length-1) {
-                ret.add(List.of(nums1[i], nums2[j]));
-                break;
-            }
-            if (i == nums1.length-1) {
-                ret.add(List.of(nums1[i], nums2[j]));
-                j++;
-            }else if (j == nums2.length-1) {
-                ret.add(List.of(nums1[i], nums2[j]));
-                i++;
-            }else if((nums1[i+1]-nums1[i]) < (nums2[j+1]-nums2[j])) {
-                ret.add(List.of(nums1[i], nums2[j]));
-                i++;
-            } else {
-                ret.add(List.of(nums1[i], nums2[j]));
-                j++;
+        while (ret.size() < k && !priorityQueue.isEmpty()) {
+            int[] poll = priorityQueue.poll();
+            ret.add(List.of(nums1[poll[0]], nums2[poll[1]]));
+            if (poll[1]+1 < nums2.length) {
+                priorityQueue.add(new int[]{poll[0], poll[1] + 1});
             }
         }
         return ret;

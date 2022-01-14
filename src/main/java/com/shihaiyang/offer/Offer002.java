@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 // Offer002. 二进制加法.[解析字符].
 // 剑指 Offer II 002. 二进制加法
-//
 public class Offer002 {
     public static void main(String[] args) {
         SolutionOffer002 solutionOffer002 = new SolutionOffer002();

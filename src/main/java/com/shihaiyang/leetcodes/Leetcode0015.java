@@ -1,7 +1,7 @@
 package com.shihaiyang.leetcodes;
 
 import java.util.*;
-//15. 三数之和
+// 0015. 三数之和.[三指针(单指针+夹逼)+移动指针去重].
 public class Leetcode0015 {
     public static void main(String[] args) {
         Solution0015 solution = new Solution0015();

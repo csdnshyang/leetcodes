@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-
+// 通用单链表
 public class ListNode {
     public int val;
     public ListNode next;

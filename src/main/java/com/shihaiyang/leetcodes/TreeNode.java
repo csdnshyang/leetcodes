@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-
+// 通用树节点
 public class TreeNode {
     public int val;
     public TreeNode left;

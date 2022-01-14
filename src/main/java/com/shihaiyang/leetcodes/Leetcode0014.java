@@ -2,7 +2,7 @@ package com.shihaiyang.leetcodes;
 
 import java.util.HashMap;
 import java.util.Map;
-// 14. 最长公共前缀.[最短字串+依次比较字符].
+// 0014. 最长公共前缀.[最短字串+依次比较字符].
 public class Leetcode0014 {
     public static void main(String[] args) {
         Solution0014 solution0014 = new Solution0014();

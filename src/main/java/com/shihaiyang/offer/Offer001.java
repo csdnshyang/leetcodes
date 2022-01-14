@@ -1,5 +1,6 @@
 package com.shihaiyang.offer;
 // Offer001. 整数除法.[减法1722ms].
+// 待优化二进制位运算
 // https://leetcode-cn.com/problems/xoh6Oh/solution/jian-zhi-offer-ii-001-zheng-shu-chu-fa-j-0sts/
 public class Offer001 {
     public static void main(String[] args) {

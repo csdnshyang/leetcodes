@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-// 70. 爬楼梯.[计数类动态规划]
+// 0070. 爬楼梯.[计数类动态规划]
 public class Leetcode0070 {
     public static void main(String[] args) {
         Solution0070 solution0070 = new Solution0070();

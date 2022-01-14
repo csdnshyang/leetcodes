@@ -3,7 +3,7 @@ package com.shihaiyang.offer;
 import java.util.Arrays;
 
 // 剑指 Offer II 003. 前 n 个数字二进制中 1 的个数
-// Offer003. 前 n 个数字二进制中 1 的个数.[动态规划+位运算+逻辑与1ms].
+// Offer003. 前 n 个数字二进制中 1 的个数.[动态规划+位运算+逻辑与1ms]. 最终
 // https://leetcode-cn.com/problems/w3tCBm/solution/jian-zhi-offer-ii-003-qian-n-ge-shu-zi-e-wkqx/
 public class Offer003 {
     public static void main(String[] args) {

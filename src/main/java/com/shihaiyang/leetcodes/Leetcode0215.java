@@ -3,7 +3,7 @@ package com.shihaiyang.leetcodes;
 import java.util.PriorityQueue;
 import java.util.Random;
 
-// 215. 数组中的第K个最大元素.[1.大顶堆积+2.快速排序].
+// 0215. 数组中的第K个最大元素.[大顶堆积(优化堆的容量快2ms);快速排序(优化排序次数+随机pivot快20ms)].
 public class Leetcode0215 {
     public static void main(String[] args) {
         Solution02152 solution02152 = new Solution02152();

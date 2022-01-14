@@ -1,9 +1,7 @@
 package com.shihaiyang.leetcodes;
 
 import java.util.Stack;
-/**
-20. 有效的括号
-*/
+// 0020. 有效的括号.[典型栈应用].
 public class Leetcode0020 {
     public static void main(String[] args) {
         Solution0020 solution0020 = new Solution0020();

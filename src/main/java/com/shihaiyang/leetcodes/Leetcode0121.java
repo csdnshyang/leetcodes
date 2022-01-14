@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-// 121. 买卖股票的最佳时机.[最值类动态规划].
+// 0121. 买卖股票的最佳时机.[最值类动态规划,记录之前买卖的利润].
 public class Leetcode0121 {
     public static void main(String[] args) {
         Solution0121 solution0121 = new Solution0121();

@@ -1,14 +1,7 @@
 package com.shihaiyang.leetcodes;
 
+// 0143. 重排链表.[快慢指针+翻转链表+拼接链表].
 /**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
 三指针或者加一个栈也可以做
  0 n 1 n-1 说明规则是最后的一位插入到前面
  不能用栈..
@@ -18,7 +11,6 @@ package com.shihaiyang.leetcodes;
 翻转链表：翻转中间位置右侧链表。
 拼接两个链表
  */
-// 143. 重排链表.[快慢指针+翻转链表+拼接链表].
 class Solution0143 {
     public void reorderList(ListNode head) {
         if(head == null){

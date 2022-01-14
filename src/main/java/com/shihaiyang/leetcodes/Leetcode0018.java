@@ -1,7 +1,7 @@
 package com.shihaiyang.leetcodes;
 
 import java.util.*;
-//18. 四数之和
+// 0018. 四数之和.[四指针(双指针+夹逼)+移动指针去重].
 public class Leetcode0018 {
     public static void main(String[] args) {
         Solution0018 solution0016 = new Solution0018();

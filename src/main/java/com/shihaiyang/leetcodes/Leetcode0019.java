@@ -1,8 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-/**
-0019. 删除链表的倒数第 N 个结点
-*/
+// 0019. 删除链表的倒数第 N 个结点.[双指针找倒数N个节点].
 public class Leetcode0019 {
     public static void main(String[] args) {
         Solution0019 solution0019 = new Solution0019();

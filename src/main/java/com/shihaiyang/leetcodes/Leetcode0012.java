@@ -1,14 +1,10 @@
 package com.shihaiyang.leetcodes;
 
-import java.util.AbstractMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
-12. 整数转罗马数字.[贪心算法+双数组(900/400/90/40/9/4)].
- * 双数组+高位递减
- */
+// 0012. 整数转罗马数字.[贪心算法+双数组(900/400/90/40/9/4)].
 public class Leetcode0012 {
     public static void main(String[] args) {
         Solution00122 solution = new Solution00122();

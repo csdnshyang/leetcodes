@@ -1,5 +1,5 @@
 package com.shihaiyang.leetcodes;
-// 0070. 爬楼梯.[计数类动态规划]
+// 0070. 爬楼梯.[计数类动态规划 0ms 100%]
 public class Leetcode0070 {
     public static void main(String[] args) {
         Solution0070 solution0070 = new Solution0070();
@@ -27,6 +27,9 @@ public class Leetcode0070 {
 class Solution0070 {
 
     public int climbStairs(int n) {
+        if(n==1){
+            return 1;
+        }
         // 存放状态
         int f[] = new int[n+1];
         // 初始化状态

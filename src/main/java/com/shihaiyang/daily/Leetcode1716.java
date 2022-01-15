@@ -26,6 +26,7 @@ class Solution1716 {
         int weekly = 7 * (1 + 7) / 2;
         // 一共有几个满周
         int week = n / 7;
+        // 满周的总数
         int fullWeek = (weekly + weekly + (week-1) * 7) * week / 2;
 
         // 最后一周几天

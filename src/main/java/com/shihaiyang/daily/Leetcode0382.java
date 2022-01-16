@@ -4,7 +4,7 @@ package com.shihaiyang.daily;
 import com.shihaiyang.leetcodes.ListNode;
 
 import java.util.Random;
-// 0382. 链表随机节点.[初始化到数组 12ms].
+// 0382. 链表随机节点.[蓄水池11ms 初始化到数组 12ms].
 public class Leetcode0382 {
 }
 
@@ -33,5 +33,32 @@ class Solution0382 {
     public int getRandom() {
         int anInt = random.ints(0, count).iterator().nextInt();
         return data[anInt];
+    }
+}
+
+/**
+ * 蓄水池算法
+ * 在数据流中，不知道完整数据量。
+ *
+ */
+class Solution0382Reservoir {
+    Random random;
+    ListNode head;
+    public Solution0382Reservoir(ListNode _head) {
+        head = _head;
+        random = new Random();
+    }
+
+    public int getRandom() {
+        ListNode p = head;
+        int idx = 0, ans = 0;
+        while (p != null && ++idx >= 0) {
+            // 判断random int == 0, 当前节点
+            int anInt = random.nextInt(idx);
+            if (anInt == 0) ans = p.val;
+            // 否则，没有选中当前节点。向后移动
+            p = p.next;
+        }
+        return ans;
     }
 }

@@ -58,3 +58,25 @@ class Solution0322 {
         return f[amount];
     }
 }
+class Solution0322Second {
+    // 最值类动态规划
+    // f[n] = min(f[n-1]+1, f[n-2]+1, f[n-5]+1);
+    // 计算f[n]时，f[n-1]已经算出
+    public int coinChange(int[] coins, int amount) {
+        int dp[] = new int[amount+1];
+        int minCoins = amount+1;
+        dp[0]=0;
+        for(int i=1;i<amount+1;i++){
+            dp[i] = amount+1;
+            for(int j=0;j<coins.length;j++){
+                // 不可能的值占位
+                int count = amount+1;
+                if(i-coins[j]>=0){
+                    count=dp[i-coins[j]]+1;
+                }
+                dp[i]=Math.min(count, dp[i]);
+            }
+        }
+        return dp[amount]>amount?-1:dp[amount];
+    }
+}

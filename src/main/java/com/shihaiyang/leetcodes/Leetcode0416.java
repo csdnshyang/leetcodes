@@ -1,10 +1,10 @@
 package com.shihaiyang.leetcodes;
 
-// 0416. 分割等和子集.[存在类动态规划 48ms].
+// 0416. 分割等和子集.[存在类动态规划(优化空间) 23ms].
 // https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/0416-fen-ge-deng-he-zi-ji-cun-zai-lei-do-8dvs/
 public class Leetcode0416 {
     public static void main(String[] args) {
-        Solution0416 solution0416 = new Solution0416();
+        Solution0416Optimize solution0416 = new Solution0416Optimize();
         boolean canPartition = solution0416.canPartition(new int[]{1,5,10,6});
         System.out.println(canPartition);
     }
@@ -85,5 +85,42 @@ class Solution0416 {
             }
         }
         return dp[nums.length - 1][target];
+    }
+}
+
+/**
+ * 动态规划优化一下空间复杂度。
+ * 从二维压缩到一维。
+ * 其实根本思路是，新增一个元素的时候，完全是依赖于上一个元素的状态的。
+ * 相当于每次新增都把上一个元素的状态舍弃，复制一份放到新元素的状态里。
+ *
+ * 另外一个就是要target遍历从后往前。为了防止前面的计算影响上一个元素的最终状态。
+ *  例如  [2,2,3,5] 这个，我中间就返回了true。就是因为 2+2 和为4是true。如果从头计算，那么就会产生4+2=6为ture的情况
+ *  所以从target一直到0。这样放第二个2的时候，不会把target=6设置为true. 主要就是防止多加数据。
+ */
+class Solution0416Optimize {
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        for (int i : nums){
+            sum += i;
+        }
+        if ((sum & 1) == 1) {
+            return false;
+        }
+        int target = sum / 2;
+        boolean dp[] = new boolean[target + 1];
+        if (nums[0] <= target){
+            dp[nums[0]] = true;
+        }
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == target) {
+                return true;
+            }
+            for (int j = target; j - nums[i] < target && j - nums[i] > 0; j--) {
+                dp[j] = dp[j] || dp[j - nums[i]];
+            }
+        }
+        return dp[target];
     }
 }

@@ -47,16 +47,17 @@ class SolutionOffer018 {
     }
 
     public boolean isMatch(char c1, char c2) {
-        if (c1 == c2) {
-            return true;
-        }
-        if (c1 >= 'A' && c1 <= 'Z' &&  c2 >= 'a' && c2 <= 'z' && c1 - 'A' == c2 - 'a') {
-            return true;
-        }
-        if (c1 >= 'a' && c1 <= 'z' &&  c2 >= 'A' && c2 <= 'Z' && c1 - 'a' == c2 - 'A') {
+        if (lower(c1) == lower(c2)) {
             return true;
         }
         return false;
+    }
+
+    private char lower(char c) {
+        if (c >= 'A' && c <= 'Z') {
+            return (char) (c - 'A' + 'a');
+        }
+        return c;
     }
 
     public boolean isValid(char c) {

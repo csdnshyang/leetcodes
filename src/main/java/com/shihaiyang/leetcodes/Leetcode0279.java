@@ -1,6 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-// 0279. 完全平方数.[最值类动态规划 39ms].
+// 0279. 完全平方数.[最值类动态规划 20ms].
 public class Leetcode0279 {
     public static void main(String[] args) {
         Solution0279 solution0279 = new Solution0279();
@@ -41,19 +41,18 @@ class Solution0279 {
     public int numSquares(int n) {
         int dp[] = new int[n + 1];
         dp[1] = 1;
-
         for (int i = 2; i <= n; i++) {
             // 初始一下
-            dp[i] = dp[i - 1] + 1;
-            int sqrt = (int)Math.sqrt(i);
-            if (i - sqrt * sqrt == 0) {
-                dp[i] = 1;
-            } else {
-                double sqrt1 = Math.sqrt(sqrt);
-                for (; sqrt > sqrt1; sqrt--) {
-                    dp[i] = Math.min(1 + dp[i - sqrt * sqrt], dp[i]);
-                }
+            int minu = Integer.MAX_VALUE;
+            for (int j = 1; j * j <= i; j++) {
+                /**
+                 * 多次设置数组的值，很耗时...
+                 * dp[i] = Math.min(1 + dp[i - sqrt * sqrt], dp[i]);
+                 * 优化为在for中使用局部变量. 优化前48ms，优化后20ms
+                 */
+                minu = Math.min(dp[i - j*j], minu);
             }
+            dp[i] = minu + 1;
         }
         return dp[n];
     }

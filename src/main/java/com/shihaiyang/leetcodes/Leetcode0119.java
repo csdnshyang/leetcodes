@@ -3,7 +3,7 @@ package com.shihaiyang.leetcodes;
 import java.util.Arrays;
 import java.util.List;
 
-// 0119. 杨辉三角 II.[计数类动态规划+空间优化 1ms].
+// 0119. 杨辉三角 II.[计数类动态规划+空间优化 0ms].
 public class Leetcode0119 {
     public static void main(String[] args) {
         Solution0119 solution0119 = new Solution0119();

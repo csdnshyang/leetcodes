@@ -36,9 +36,7 @@ class Solution0128 {
             int left = map.getOrDefault(num - 1, 0);
             int right = map.getOrDefault(num + 1, 0);
             int curMaxLen = 1 + left + right;
-            if (curMaxLen > max) {
-                max = curMaxLen;
-            }
+            max = Math.max(max, curMaxLen);
             map.put(num, curMaxLen);
             if (left != 0) {
                 map.put(num -left, curMaxLen);

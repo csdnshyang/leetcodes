@@ -1,12 +1,11 @@
 package com.shihaiyang.daily;
 
-import java.util.ArrayList;
-import java.util.List;
-// 2029. 石子游戏 IX.[博弈]
+// 2029. 石子游戏 IX.[博弈8ms]
 public class Leetcode2029 {
     public static void main(String[] args) {
         Solution2029 solution2029 = new Solution2029();
         boolean stoneGameIX = solution2029.stoneGameIX(new int[]{1,1,7,10,8,17,10,20,2,10});
+//        boolean stoneGameIX = solution2029.stoneGameIX(new int[]{2,1});
         System.out.println(stoneGameIX);
     }
 }
@@ -49,17 +48,17 @@ class Solution2029 {
     public boolean stoneGameIX(int[] stones) {
         int arr0 = 0, arr1 = 0, arr2 = 0;
         for (int i = 0; i < stones.length; i++) {
-            if (i % 3 == 0) {
+            if (stones[i] % 3 == 0) {
                 arr0++;
-            } else if (i % 3 == 1) {
+            } else if (stones[i] % 3 == 1) {
                 arr1++;
             } else {
                 arr2++;
             }
         }
-        if ((arr0 & 1) == 1) {
+        if ((arr0 & 1) == 0) {
             return arr1 >= 1 && arr2 >= 1;
         }
-        return arr1 - 2 > arr2 || arr2 - 2 > arr1;
+        return arr1 - arr2 > 2 || arr2 - arr1 > 2;
     }
 }

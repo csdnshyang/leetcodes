@@ -2,7 +2,7 @@ package com.shihaiyang.leetcodes;
 
 import java.util.Arrays;
 
-// 0056. 合并区间.[排序8ms]
+// 0056. 合并区间.[排序8ms].
 public class Leetcode0056 {
     public static void main(String[] args) {
         int[][] arr = new int[][]{
@@ -41,9 +41,6 @@ public class Leetcode0056 {
 class Solution0056 {
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> {
-            if (a[0] == b[0]) {
-                return a[1] - b[1];
-            }
             return a[0] - b[0];
         });
 

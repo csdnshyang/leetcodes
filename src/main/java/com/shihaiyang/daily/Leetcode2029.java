@@ -2,7 +2,7 @@ package com.shihaiyang.daily;
 
 import java.util.ArrayList;
 import java.util.List;
-// 2029. 石子游戏 IX.
+// 2029. 石子游戏 IX.[博弈]
 public class Leetcode2029 {
     public static void main(String[] args) {
         Solution2029 solution2029 = new Solution2029();
@@ -43,55 +43,23 @@ public class Leetcode2029 {
  */
 
 /**
- * 无限循环。
- * while(i<length)
- * 剪枝
- * sum+=?
- * if(sum%3==0 && size < nums.length-1)  continue;
- * 跳出条件  sum%3==0  {if size&1 == 1 return false   else return true}
- * size==nums.length return false
+ * 博弈类
  */
 class Solution2029 {
     public boolean stoneGameIX(int[] stones) {
-        List<Integer> selected = new ArrayList<>();
-        char[] used = new char[stones.length];
-        int sum = 0;
-        int emptyCycle = 0;
-        while (selected.size() < stones.length) {
-            emptyCycle = 0;
-            for (int i = 0; i < stones.length; i++) {
-                if (used[i] == '1') {
-                    continue;
-                }
-                int preCompute = sum + stones[i];
-                if (preCompute % 3 == 0 && selected.size() < stones.length - 1) {
-                    // 整除3，且还有别的，就选别的
-                    continue;
-                } else if (preCompute % 3 == 0 && selected.size() == stones.length - 1) {
-                    // 最后一个，且整除，根据奇偶数判断
-                    if ((stones.length & 1) == 1) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                System.out.println(sum+"==");
-                sum = preCompute;
-                used[i] = '1';
-                selected.add(stones[i]);
-                emptyCycle++;
-            }
-            // 空转，说明有空余数字，但每个加上等于3.
-            if (emptyCycle == 0) {
-                if ((selected.size() & 1) == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+        int arr0 = 0, arr1 = 0, arr2 = 0;
+        for (int i = 0; i < stones.length; i++) {
+            if (i % 3 == 0) {
+                arr0++;
+            } else if (i % 3 == 1) {
+                arr1++;
+            } else {
+                arr2++;
             }
         }
-        System.out.println(selected.toString());
-        // 全移除，无法整除
-        return false;
+        if ((arr0 & 1) == 1) {
+            return arr1 >= 1 && arr2 >= 1;
+        }
+        return arr1 - 2 > arr2 || arr2 - 2 > arr1;
     }
 }

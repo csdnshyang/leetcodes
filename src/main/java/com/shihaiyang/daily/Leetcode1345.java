@@ -1,7 +1,7 @@
 package com.shihaiyang.daily;
 
 import java.util.*;
-// 1345. 跳跃游戏 IV.[BFS]
+// 1345. 跳跃游戏 IV.[BFS 50ms]
 public class Leetcode1345 {
     public static void main(String[] args) {
         Solution1345 solution1345 = new Solution1345();
@@ -36,10 +36,10 @@ public class Leetcode1345 {
  */
 
 /**
- * BFS
+ * BFS  广度遍历
  * 通过一个map存储value相同的index
  * 通过一个队列存储每一个节点可跳跃的节点
- * 通过一个数组剪枝
+ * 通过一个数组剪枝，存储每一个步骤的需要的步数。
  * 从一个节点arr[0]开始，把可以扫描的节点放到队列。
  * 如果队列不为空，再对队列中的索引执行相同的操作。
  * 如果扫描过就剪枝
@@ -67,24 +67,25 @@ class Solution1345 {
             if (index == arr.length - 1) {
                 return step;
             }
-            // 判断是否出现最后一个节点
-            // 存入下一个遍历循环
+            // 如果下一个存在，加入队列，更新步数。扫描的步数如果么有设置，再设置，如果设置过就剪枝。
             if (index + 1 < arr.length && scanned[index + 1] == Integer.MAX_VALUE) {
                 queue.addLast(index + 1);
                 scanned[index + 1] = step + 1;
             }
-            if (index - 1 >= 0 && scanned[index - 1] != Integer.MAX_VALUE) {
+            // 如果上一个存在，加入队列，更新步数。扫描的步数如果么有设置，再设置，如果设置过就剪枝。
+            if (index - 1 >= 0 && scanned[index - 1] == Integer.MAX_VALUE) {
                 queue.addLast(index - 1);
                 scanned[index - 1] = step + 1;
             }
-            int val = arr[index];
-            List<Integer> indexes = map.getOrDefault(val, new ArrayList<>());
+            // 如果相同值，加入队列，更新步数。扫描的步数如果么有设置，再设置，如果设置过就剪枝。
+            List<Integer> indexes = map.getOrDefault(arr[index], new ArrayList<>());
             for (int j = 0; j < indexes.size(); j++) {
                 if (scanned[indexes.get(j)] == Integer.MAX_VALUE) {
                     queue.addLast(indexes.get(j));
                     scanned[indexes.get(j)] = step + 1;
                 }
             }
+            // 如果扫描过相同的值，step就设置过，下一次相同值扫描时，因为已经设置过step，所以不需要在设置，所以map中value可以删除。
             map.remove(arr[index]);
         }
         return -1;

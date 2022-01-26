@@ -1,6 +1,6 @@
 package com.shihaiyang.leetcodes;
 
-// 0011. 盛最多水的容器.[典型双指针].
+// 0011. 盛最多水的容器.[典型双指针2ms].
 public class Leetcode0011 {
     public static void main(String[] args) {
         int[] height = new int[]{1,8,6,2,5,4,8,3,7};
@@ -17,17 +17,15 @@ public class Leetcode0011 {
  */
 class Solution0011 {
     public int maxArea(int[] height) {
-        int i=0,j=height.length-1;
+        int left=0,right=height.length-1;
         int max = 0;
-        while(i<j){
-            if(height[i] < height[j]){
-                int area= height[i]*(j-i);
-                if(max < area) max=area;
-                i++;
-            }else{
-                int area= height[j]*(j-i);
-                if(max < area) max=area;
-                j--;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                max = Math.max(height[left] * (right - left), max);
+                left++;
+            } else {
+                max = Math.max(height[right] * (right - left), max);
+                right--;
             }
         }
         return max;

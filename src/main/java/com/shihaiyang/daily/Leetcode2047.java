@@ -1,6 +1,14 @@
 package com.shihaiyang.daily;
-// 2047. 句子中的有效单词数
+
+// 2047. 句子中的有效单词数.[计数2ms].
 public class Leetcode2047 {
+    public static void main(String[] args) {
+        Solution2047 solution2047 = new Solution2047();
+//        int countValidWords = solution2047.countValidWords("!");
+//        int countValidWords = solution2047.countValidWords(". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5");
+        int countValidWords = solution2047.countValidWords("cat");
+        System.out.println(countValidWords);
+    }
 }
 
 /**
@@ -30,32 +38,79 @@ public class Leetcode2047 {
  * 首字母要是英文字母
  * 中间最多一个连字符，包含数字不是单词。
  * 最后可以是字母数字或者标点
+ * 不符合的情况：
+ * 1. 首字母不是字符或者标点  - 1
+ * 2. 包含数字  2
+ * 3. 两个标点或者间隔符  a.. b--
+ * 4. 一个标点一个间隔符，但位置不对   a-.
+ * 5. 一个标点，但位置不对  a.a
+ * 6. 一个间隔符，但位置不对  a-
  */
 class Solution2047 {
     public int countValidWords(String sentence) {
-        if (sentence.equals("")) {
-            return 0;
-        }
         char[] chars = sentence.toCharArray();
         int i = 0;
+        int validWords = 0;
         while (i < chars.length) {
-            while (chars[i]==' '){i++;}
-            int count = 0;
-            while (chars[i] != ' '){
-                if (count == 0 && isZifu(chars[i])) {
-                    count++;
-                }else{
-
+            // 跳过空格
+            while (i < chars.length && chars[i] == ' ') {
+                i++;
+            }
+            // 超出长度跳出
+            if (i >= chars.length) {
+                break;
+            }
+            boolean valid = true;
+            // check 0:间隔符个数  1:标点个数  2:数字个数
+            int check[] = new int[]{0, 0, 0};
+            // 首字母不是字母或者标点，不符合
+            if (!(isZifu(chars[i]) || isBiaodian(chars[i]))) {
+                valid = false;
+            }
+            while (i < chars.length && chars[i] != ' ') {
+                // 包含数字，不符合
+                if (isJiange(chars[i])) {
+                    check[0]++;
+                }else if (isBiaodian(chars[i])) {
+                    check[1]++;
+                }else if (isShuzi(chars[i])) {
+                    check[2]++;
                 }
+                i++;
+            }
+            // 标点或者-个数超1，不符合
+            if (check[2] > 0) {
+                valid = false;
+            }else if (check[0] > 1 || check[1] > 1) {
+                valid = false;
+            } else if (check[0] == 1 && check[1] == 1) {
+                // 一个标点一个-，如果最后一个不是标点或者标点前不是字符，不符合
+                if (!isBiaodian(chars[i - 1]) || !isZifu(chars[i - 2])) {
+                    valid = false;
+                }
+                // 如果只有间隔符，且最后一个字符是间隔符，不符合
+            } else if (check[0] == 1 && chars[i - 1] == '-') {
+                valid = false;
+                // 如果只有标点，且最后一个字符不是标点，不符合
+            } else if (check[1] == 1 && !isBiaodian(chars[i - 1])) {
+                valid = false;
+            }
+            if (valid) {
+                validWords++;
             }
         }
+        return validWords;
     }
-
+    private boolean isJiange(int aChar) {
+        return aChar == '-';
+    }
+    private boolean isShuzi(char aChar) {
+        return aChar >= '0' && aChar <= '9';
+    }
+    private boolean isBiaodian(char aChar) {
+        return aChar == ',' || aChar == '.' || aChar == '!';
+    }
     public boolean isZifu(char c) {
-        if (c >= 'a' && c <= 'z') {
-            return true;
-        }
-        return false;
+        return c >= 'a' && c <= 'z';
     }
-
 }

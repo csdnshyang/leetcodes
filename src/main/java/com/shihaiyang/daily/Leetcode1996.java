@@ -2,10 +2,10 @@ package com.shihaiyang.daily;
 
 import java.util.Arrays;
 
-// 1996. 游戏中弱角色的数量.[排序,记录最大防御92ms].
+// 1996. 游戏中弱角色的数量.[桶排序4ms].
 public class Leetcode1996 {
     public static void main(String[] args) {
-        Solution1996 solution1996 = new Solution1996();
+        Solution1996Bucket solution1996 = new Solution1996Bucket();
         int properties[][] = new int[][]{
                 {10,1},
                 {5,1},
@@ -42,6 +42,9 @@ public class Leetcode1996 {
 
 /**
  * 排序
+ * 攻击降序，防御升序。
+ * 防御升序是规避攻击相同情况下，防御低的数据。
+ * 如果攻击相同，就让防御从小到大，就是为了记录一下最后一个防御最大的。
  */
 class Solution1996 {
     public int numberOfWeakCharacters(int[][] properties) {
@@ -57,5 +60,48 @@ class Solution1996 {
             }
         }
         return count;
+    }
+}
+
+/**
+ * 桶排序
+ * 1.找最大的攻击。
+ * 2.找最大攻击的最大防御
+ * 3.设置每个攻击的最大防御为，比该攻击大的最大防御。
+ *      这个是理解比较困难的，比较一个是否为弱者是要比某个人的攻击小，并且比他攻击力大的人的防御低。所以真实比较防御力应该比较比他攻击力大的那个人的防御。
+ *      比较攻击力为5的人是否为弱者，要比较大于5的人的最大防御
+ *      比如  [5,7][5,4][6,3][6,5] 5应该比较的防御是5,6的最大防御。
+ *      在比如  [5,7][5,4][6,3][6,5][7,10] 5应该比较的防御应该是10，7的最大防御。
+ * 4.遍历每个值，判断是否小于防御，并且小于最大攻击
+ */
+class Solution1996Bucket {
+    public int numberOfWeakCharacters(int[][] properties) {
+        // 1. 最大攻击
+        int maxAttack = 0;
+        for (int[] property : properties) {
+            maxAttack = Math.max(property[0], maxAttack);
+        }
+        // 2. 攻击的最大防御
+        int maxDefenses[] = new int[maxAttack + 1];
+        for (int[] property : properties) {
+            maxDefenses[property[0]] = Math.max(maxDefenses[property[0]], property[1]);
+        }
+
+        // 3. 更改为比该攻击大的人的最大防御
+        // [5,7][5,4][6,3][6,5] 5应该比较的防御是5, [6,5]的最大防御。
+        int maxDefense = 0;
+        for (int i = maxAttack; i >= 0; i--) {
+            int tmp = maxDefense;
+            maxDefense = Math.max(maxDefense, maxDefenses[i]);
+            maxDefenses[i] = tmp;
+        }
+        // 4. 判断是否弱者
+        int ans = 0;
+        for (int[] property : properties) {
+            if (property[1] < maxDefenses[property[0]]) {
+                ans++;
+            }
+        }
+        return ans;
     }
 }

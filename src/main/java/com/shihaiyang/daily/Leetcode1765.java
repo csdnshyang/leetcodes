@@ -53,25 +53,27 @@ class Solution1765 {
             }
         }
         int height = 0;
-        int[][] bfs = new int[][]{
-                {1,0},
-                {-1,0},
-                {0,1},
-                {0,-1},
-        };
         while (!queue.isEmpty()) {
             int size = queue.size();
             height++;
             for (int i = 0; i < size; i++) {
                 int[] poll = queue.poll();
-                for (int[] bf : bfs) {
-                    int x = bf[0] + poll[0];
-                    int y = bf[1] + poll[1];
-                    // 如果已经存储的高度大于当前扩散所得的水域高度(height)，那么就设置成height. 取小。
-                    if (x >= 0 && x < m && y >= 0 && y < n && isWater[x][y] > height) {
-                        queue.offer(new int[]{x, y});
-                        isWater[x][y] = height;
-                    }
+                // 如果已经存储的高度大于当前扩散所得的水域高度(height)，那么就设置成height. 取小。
+                if (poll[0] + 1 < m && isWater[poll[0] + 1][poll[1]] > height) {
+                    queue.offer(new int[]{poll[0] + 1, poll[1]});
+                    isWater[poll[0] + 1][poll[1]] = height;
+                }
+                if (poll[0] - 1 >= 0 && isWater[poll[0] - 1][poll[1]] > height) {
+                    queue.offer(new int[]{poll[0] - 1, poll[1]});
+                    isWater[poll[0] - 1][poll[1]] = height;
+                }
+                if (poll[1] + 1 < n && isWater[poll[0]][poll[1] + 1] > height) {
+                    queue.offer(new int[]{poll[0], poll[1] + 1});
+                    isWater[poll[0]][poll[1] + 1] = height;
+                }
+                if (poll[1] - 1 >= 0 && isWater[poll[0]][poll[1] - 1] > height) {
+                    queue.offer(new int[]{poll[0], poll[1] - 1});
+                    isWater[poll[0]][poll[1] - 1] = height;
                 }
             }
         }

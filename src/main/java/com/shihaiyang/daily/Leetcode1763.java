@@ -4,7 +4,8 @@ package com.shihaiyang.daily;
 public class Leetcode1763 {
     public static void main(String[] args) {
         Solution1763 solution1763 = new Solution1763();
-        String niceSubstring = solution1763.longestNiceSubstring("YazaAay");
+//        String niceSubstring = solution1763.longestNiceSubstring("YazaAay");
+        String niceSubstring = solution1763.longestNiceSubstring("dDzeEZZ");
         System.out.println(niceSubstring);
     }
 }
@@ -28,7 +29,7 @@ class Solution1763 {
         int maxLen = 0;
         String ret = "";
         for (int i = 0; i < s.length(); i++) {
-            for (int j = i+1; j < s.length(); j++) {
+            for (int j = i+maxLen; j < s.length(); j++) {
                 boolean beautify = checkBeautify(s.substring(i, j+1));
                 if (beautify && maxLen < j - i) {
                     maxLen = j - i;
@@ -46,10 +47,10 @@ class Solution1763 {
         for (int i = 0; i < chars.length; i++) {
             if (checkBig(chars[i])) {
                 int index = chars[i] - 'A';
-                big = big | (1 << index);
+                big |= (1 << index);
             } else {
                 int index = chars[i] - 'a';
-                small = small | (1 << index);
+                small |= (1 << index);
             }
         }
         return big == small;

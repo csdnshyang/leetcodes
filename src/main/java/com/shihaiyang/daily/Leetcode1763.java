@@ -1,11 +1,11 @@
 package com.shihaiyang.daily;
 
-// 1763. 最长的美好子字符串.[方法1：双循环暴力+位运算19ms].
+// 1763. 最长的美好子字符串.[方法1：双循环暴力+位运算4ms].
 public class Leetcode1763 {
     public static void main(String[] args) {
         Solution1763 solution1763 = new Solution1763();
 //        String niceSubstring = solution1763.longestNiceSubstring("YazaAay");
-        String niceSubstring = solution1763.longestNiceSubstring("dDzeEZZ");
+        String niceSubstring = solution1763.longestNiceSubstring("dDzeE");
         System.out.println(niceSubstring);
     }
 }
@@ -28,32 +28,24 @@ class Solution1763 {
     public String longestNiceSubstring(String s) {
         int maxLen = 0;
         String ret = "";
+        char[] chars = s.toCharArray();
         for (int i = 0; i < s.length(); i++) {
-            for (int j = i+maxLen; j < s.length(); j++) {
-                boolean beautify = checkBeautify(s.substring(i, j+1));
-                if (beautify && maxLen < j - i) {
-                    maxLen = j - i;
+            int big = 0, small = 0;
+            for (int j = i; j < s.length(); j++) {
+                if (checkBig(chars[j])) {
+                    int index = chars[j] - 'A';
+                    big |= (1 << index);
+                } else {
+                    int index = chars[j] - 'a';
+                    small |= (1 << index);
+                }
+                if (big == small && maxLen < j - i) {
                     ret = s.substring(i, j + 1);
+                    maxLen = j - i + 1;
                 }
             }
         }
-
         return ret;
-    }
-
-    private boolean checkBeautify(String s) {
-        int big = 0, small = 0;
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            if (checkBig(chars[i])) {
-                int index = chars[i] - 'A';
-                big |= (1 << index);
-            } else {
-                int index = chars[i] - 'a';
-                small |= (1 << index);
-            }
-        }
-        return big == small;
     }
 
     private boolean checkBig(char c) {

@@ -3,8 +3,8 @@ package com.shihaiyang.daily;
 // 2000. 反转单词前缀.[字符数组+遍历 0ms].
 public class Leetcode2000 {
     public static void main(String[] args) {
-        Solution2000 solution2000 = new Solution2000();
-        String reversePrefix = solution2000.reversePrefix("abcdefd", 'g');
+        Solution2000Builder solution2000 = new Solution2000Builder();
+        String reversePrefix = solution2000.reversePrefix("abcdefk", 'k');
         System.out.println(reversePrefix);
     }
 }
@@ -39,5 +39,16 @@ class Solution2000 {
             chars[i - j] = tmp;
         }
         return String.valueOf(chars);
+    }
+}
+
+class Solution2000Builder {
+    public String reversePrefix(String word, char ch) {
+        char[] chars = word.toCharArray();
+        int i = word.indexOf(ch);
+        if (i == -1) {
+            return word;
+        }
+        return new StringBuilder(word.substring(0, i+1)).reverse().append(word.substring(i+1)).toString();
     }
 }

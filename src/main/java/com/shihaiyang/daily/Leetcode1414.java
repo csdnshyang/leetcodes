@@ -65,5 +65,18 @@ class Solution1414 {
             }
         }
         return ans;
+
+        // 贪心、动态规划都可
+//        int minFib[] = new int[k + 1];
+//        minFib[0] = 0;
+//        for (i = 1; i <= k; i++) {
+//            minFib[i] = Integer.MAX_VALUE;
+//            for (int j = 1; j < fib.size(); j++) {
+//                if (i - fib.get(j) >= 0) {
+//                    minFib[i] = Math.min(minFib[i - fib.get(j)] + 1, minFib[i]);
+//                }
+//            }
+//        }
+//        return minFib[k];
     }
 }

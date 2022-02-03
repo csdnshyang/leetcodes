@@ -2,13 +2,12 @@ package com.shihaiyang.daily;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.TreeMap;
 
-// 1725. 可以形成最大正方形的矩形数目.[].
+// 1725. 可以形成最大正方形的矩形数目.[贪心2ms].
 public class Leetcode1725 {
     public static void main(String[] args) {
-        Solution1725 solution1725 = new Solution1725();
+        Solution1725Greedy solution1725 = new Solution1725Greedy();
         int rec[][] = new int[][]{
                 {5,8},
                 {3,9},
@@ -31,6 +30,25 @@ public class Leetcode1725 {
  * 最大正方形的边长为 5 ，可以由 3 个矩形切分得到。
  */
 
+/**
+ * Greedy
+ */
+class Solution1725Greedy {
+    public int countGoodRectangles(int[][] rectangles) {
+        int maxVal = 0;
+        int count = 0;
+        for (int i = 0; i < rectangles.length; i++) {
+            int min = Math.min(rectangles[i][0], rectangles[i][1]);
+            if (maxVal == min) {
+                count++;
+            } else if(min > maxVal){
+                maxVal = min;
+                count = 1;
+            }
+        }
+        return count;
+    }
+}
 /**
  * HashMap + maxVal
  */

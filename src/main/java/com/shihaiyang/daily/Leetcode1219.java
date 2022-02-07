@@ -1,6 +1,6 @@
 package com.shihaiyang.daily;
 
-// 1219. 黄金矿工.[回溯 2ms].
+// 1219. 黄金矿工.[回溯 17ms].
 public class Leetcode1219 {
     public static void main(String[] args) {
         Solution1219 solution1219 = new Solution1219();

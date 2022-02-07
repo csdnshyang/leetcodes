@@ -54,26 +54,29 @@ class Solution6003 {
         }
         int left[] = new int[s.length()];
         int right[] = new int[s.length()];
+        // 初始状态
         if (chars[0] == '1') {
             left[0] = 1;
         }
         if (chars[size] == '1') {
             right[0] = 1;
         }
-
         for (int i = 1; i <= size; i++) {
+            // 从左侧算花费  (0...size)
             if (chars[i] == '1') {
                 left[i] = Math.min(left[i - 1] + 2, i + 1);
             } else {
                 left[i] = left[i - 1];
             }
+            // 从右侧算花费 (size ... 0)
             if (chars[size - i] == '1') {
                 right[i] = Math.min(right[i - 1] + 2, i + 1);
             } else {
                 right[i] = right[i - 1];
             }
         }
-        int ans = left[0] + right[size];
+        // 总花费  枚举分割点算左侧花费，右侧对于分割点开区间 左[0,i] 右(i,size]
+        int ans = left[0] + right[size-1];
         for (int i = 1; i <= size; i++) {
             ans = Math.min(ans, left[i] + right[size - i]);
         }

@@ -1,5 +1,7 @@
 package com.shihaiyang.offer;
 
+import com.shihaiyang.leetcodes.ListNode;
+
 // 剑指 Offer II 028. 展平多级双向链表
 // Offer028. 展平多级双向链表.[递归+双向链表拼接 0ms].
 public class Offer028 {
@@ -104,5 +106,17 @@ class Node {
     public Node prev;
     public Node next;
     public Node child;
+
+    public static Node generate(int[] arr) {
+        Node dummy = new Node();
+        Node p = dummy;
+        for (int i = 0; i < arr.length; i++) {
+            Node temp = new Node();
+            temp.val = arr[i];
+            p.next =temp;
+            p = temp;
+        }
+        return dummy.next;
+    }
 };
 

@@ -39,6 +39,12 @@ public class Offer038 {
         int[] temperatures = solutionOffer038.dailyTemperatures(new int[]{30,60,90});
         Assertions.assertArrayEquals(temperatures, new int[]{1,1,0});
     }
+    // [89,62,70,58,47,47,46,76,100,70] -> [8,1,5,4,3,2,1,1,0,0]
+    @Test
+    public void case4() {
+        int[] temperatures = solutionOffer038.dailyTemperatures(new int[]{89,62,70,58,47,47,46,76,100,70});
+        Assertions.assertArrayEquals(temperatures, new int[]{8,1,5,4,3,2,1,1,0,0});
+    }
 }
 
 /**
@@ -53,37 +59,21 @@ public class Offer038 {
 
 /**
  * 换一个思路。栈中存放下标。
+ * 每一个元素都要入栈。
+ * 但是有的情况是直接入栈，有的情况是把栈中元素弹出，再入栈。
+ * 每次弹出其他栈的时候，更新下结果数组。
+ * 这个思路似乎更加清晰一下。能减少判断。
  */
 class SolutionOffer038 {
     public int[] dailyTemperatures(int[] temperatures) {
         int[] ret = new int[temperatures.length];
-        Stack<int[]> monotoneStack = new Stack<>();
+        Stack<Integer> monotoneStack = new Stack<>();
         for (int i = temperatures.length - 1; i >= 0; i--) {
-            if (monotoneStack.isEmpty()) {
-                monotoneStack.push(new int[]{temperatures[i], 0});
-                ret[i] = 0;
-                continue;
+            while (!monotoneStack.isEmpty() && temperatures[monotoneStack.peek()] <= temperatures[i]) {
+                monotoneStack.pop();
             }
-            if (monotoneStack.peek()[0] > temperatures[i]) {
-                monotoneStack.push(new int[]{temperatures[i], 1});
-                ret[i] = 1;
-                continue;
-            }
-            int step = 1;
-            while (!monotoneStack.isEmpty()) {
-                int[] pop = monotoneStack.pop();
-                if (monotoneStack.isEmpty()) {
-                    monotoneStack.push(new int[]{temperatures[i], 0});
-                    ret[i] = 0;
-                    break;
-                }
-                if (monotoneStack.peek()[0] > temperatures[i]) {
-                    monotoneStack.push(new int[]{temperatures[i], step + pop[1]});
-                    ret[i] = step + pop[1];
-                    break;
-                }
-                step += pop[1];
-            }
+            ret[i] = monotoneStack.isEmpty() ? 0 :monotoneStack.peek() - i;
+            monotoneStack.push(i);
         }
         return ret;
     }

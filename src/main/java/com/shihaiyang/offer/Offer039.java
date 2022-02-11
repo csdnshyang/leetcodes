@@ -1,6 +1,6 @@
 package com.shihaiyang.offer;
 // 剑指 Offer II 039. 直方图最大矩形面积
-// Offer039. 直方图最大矩形面积.[单调栈150ms].
+// Offer039. 直方图最大矩形面积.[单调栈 5ms].
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -87,20 +87,22 @@ public class Offer039 {
 class SolutionOffer039 {
     public int largestRectangleArea(int[] heights) {
         int ans = 0;
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
+        int[] stack = new int[heights.length];
+        int top = -1;
         for (int i = 0; i < heights.length; i++) {
-            while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) {
+            while (top != -1 && heights[stack[top]] >= heights[i]) {
                 // 计算
-                int pop = stack.pop();
-                ans = Math.max(ans, (i - stack.peek() - 1) * heights[pop]);
+                int height = heights[stack[top--]];
+                int pre = top == -1 ? -1 : stack[top];
+                ans = Math.max(ans, (i - pre - 1) * height);
             }
-            stack.push(i);
+            stack[++top] = i;
         }
-        while (stack.peek() != -1 ) {
+        while (top != -1) {
             // 计算
-            int pop = stack.pop();
-            ans = Math.max(ans, (heights.length - stack.peek() - 1) * heights[pop]);
+            int height = heights[stack[top--]];
+            int pre = top == -1 ? -1 : stack[top];
+            ans = Math.max(ans, (heights.length - pre - 1) * height);
         }
         return ans;
     }

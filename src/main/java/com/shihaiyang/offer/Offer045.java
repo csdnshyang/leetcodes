@@ -22,13 +22,13 @@ public class Offer045 {
 
     @Test
     public void case1() {
-        TreeNode root = TreeNode.generate(new Integer[]{2, 1, 3});
+        TreeNode root = Codec.generate("2, 1, 3");
         int bottomLeftValue = solutionOffer045.findBottomLeftValue(root);
         Assertions.assertEquals(bottomLeftValue, 1);
     }
     @Test
     public void case2() {
-        TreeNode root = TreeNode.generate(new Integer[]{1,2,3,4,null,5,6,null,null,7});
+        TreeNode root = Codec.generate("1,2,3,4,null,5,6,null,null,7");
         int bottomLeftValue = solutionOffer045.findBottomLeftValue(root);
         Assertions.assertEquals(bottomLeftValue, 7);
     }

@@ -1,6 +1,8 @@
 package com.shihaiyang.offer;
 
 import com.shihaiyang.leetcodes.TreeNode;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 // Offer II 049. 从根节点到叶节点的路径数字之和[后序遍历1ms]
 
@@ -37,6 +39,13 @@ import com.shihaiyang.leetcodes.TreeNode;
  * 因此，数字总和 = 495 + 491 + 40 = 1026
  */
 public class Offer049 {
+    SolutionOffer049 solutionOffer049 = new SolutionOffer049();
+    @Test
+    public void case1() {
+        TreeNode root = Codec.generate("4,9,0,5,1");
+        int sumNumbers = solutionOffer049.sumNumbers(root);
+        Assertions.assertEquals(sumNumbers,1026);
+    }
 }
 
 /**

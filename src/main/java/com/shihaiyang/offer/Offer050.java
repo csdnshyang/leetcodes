@@ -1,99 +1,49 @@
 package com.shihaiyang.offer;
-//Offer II 048. 序列化与反序列化二叉树[完全二叉树层序遍历 16ms].
+
+// Offer II 050. 向下的路径节点之和.[递归+前缀和+Map].
 
 import com.shihaiyang.leetcodes.TreeNode;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，
- * 同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
- *
- * 请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，
- * 只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
- * -1000 <= Node.val <= 1000
+ * 给定一个二叉树的根节点 root ，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的 路径 的数目。
+ * 路径 不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
+ * 示例 1：
+ * 输入：root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
+ * 输出：3
+ * 解释：和等于 8 的路径有 3 条，如图所示。
+ * 示例 2：
+ * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+ * 输出：3
  */
 public class Offer050 {
-    @Test
-    public void case1() {
-        Codec codec = new Codec();
-        String hash = "1,2,3,x,4,5,6,x,x,x,x,x,x,";
-        Assertions.assertEquals(codec.serialize(codec.deserialize(hash)), hash);
-    }
-    @Test
-    public void case2() {
-        Codec codec = new Codec();
-        String hash = "";
-        Assertions.assertEquals(codec.serialize(codec.deserialize(hash)), hash);
-    }
-    @Test
-    public void case3() {
-        Codec codec = new Codec();
-        String hash = "1,x,x,";
-        Assertions.assertEquals(codec.serialize(codec.deserialize(hash)), hash);
-    }
-    @Test
-    public void case4() {
-        Codec codec = new Codec();
-        String hash = "1,2,x,x,x,";
-        Assertions.assertEquals(codec.serialize(codec.deserialize(hash)), hash);
-    }
 }
 
 /**
- * 序列化成字符串，反序列化成树；
- * 层序遍历试试
+ * dfs+前缀和+map
  */
-class Codec {
-
-    // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
-        StringBuffer stringBuffer = new StringBuffer();
-        Queue<TreeNode> queue = new LinkedList<>();
-        if (root != null) {
-            queue.add(root);
-            while (!queue.isEmpty()) {
-                TreeNode poll = queue.poll();
-                if (poll == null) {
-                    stringBuffer.append("x").append(",");
-                }else{
-                    queue.add(poll.left);
-                    queue.add(poll.right);
-                    stringBuffer.append(poll.val).append(",");
-                }
-            }
-        }
-        return stringBuffer.toString();
+class SolutionOffer050 {
+    public int pathSum(TreeNode root, int targetSum) {
+        Map<Long, Integer> prefix = new HashMap<>();
+        prefix.put(0L, 1);
+        int ret = dfs(root, 0L, prefix, targetSum);
+        return ret;
     }
 
-    // Decodes your encoded data to tree.
-    // 1,2,3,x,4,5,6,
-    public TreeNode deserialize(String data) {
-        if (data.equals("")) {
-            return null;
+    public int dfs(TreeNode node, long curr, Map<Long, Integer> prefix, int targetSum) {
+        if (node == null) {
+            return 0;
         }
-        String[] split = data.split(",");
-        Queue<TreeNode> queue = new LinkedList<>();
-        Integer rootVal = Integer.valueOf(split[0]);
-        TreeNode root = new TreeNode(rootVal);
-        queue.add(root);
-        int index = 1;
-        while (!queue.isEmpty()) {
-            TreeNode poll = queue.poll();
-            if (index <split.length && !split[index].equals("x")) {
-                poll.left = new TreeNode(Integer.parseInt(split[index]));
-                queue.add(poll.left);
-            }
-            index++;
-            if (index <split.length && !split[index].equals("x")) {
-                poll.right = new TreeNode(Integer.parseInt(split[index]));
-                queue.add(poll.right);
-            }
-            index++;
-        }
-        return root;
+        int ret = 0;
+        curr += node.val;
+
+        ret += prefix.getOrDefault(curr - targetSum, 0);
+        prefix.put(curr, prefix.getOrDefault(curr, 0) + 1);
+        ret += dfs(node.left, curr, prefix, targetSum);
+        ret += dfs(node.right, curr, prefix, targetSum);
+        prefix.put(curr, prefix.getOrDefault(curr, 0) - 1);
+        return ret;
     }
 }

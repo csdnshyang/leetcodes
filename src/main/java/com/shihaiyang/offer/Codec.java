@@ -49,12 +49,12 @@ public class Codec {
         int index = 1;
         while (!queue.isEmpty()) {
             TreeNode poll = queue.poll();
-            if (index <split.length && !split[index].equals("null")) {
+            if (index <split.length && !split[index].trim().equals("null")) {
                 poll.left = new TreeNode(Integer.parseInt(split[index].trim()));
                 queue.add(poll.left);
             }
             index++;
-            if (index <split.length && !split[index].equals("null")) {
+            if (index <split.length && !split[index].trim().equals("null")) {
                 poll.right = new TreeNode(Integer.parseInt(split[index].trim()));
                 queue.add(poll.right);
             }

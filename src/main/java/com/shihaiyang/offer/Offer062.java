@@ -47,29 +47,36 @@ public class Offer062 {
  * 记录层级，layer。
  */
 class Trie {
-    Trie[] tries;
-    int layer;
-    int isEnd = 0;
+    TreeNode root;
     public Trie() {
-        tries = new Trie[26];
-        layer = 0;
+        root = new TreeNode();
     }
+    class TreeNode{
+        TreeNode[] nodes;
+        int isEnd = 0;
+        int layer = 0;
+
+        public TreeNode() {
+            nodes = new TreeNode[26];
+        }
+    }
+
     public void insert(String word) {
-        Trie p = this;
+        TreeNode p = root;
         for (int i = 0; i < word.length(); i++) {
             int index = word.charAt(i) - 'a';
-            if (p.tries[index] == null) {
-                p.tries[index] = new Trie();
-                p.tries[index].layer = p.layer + 1;
+            if (p.nodes[index] == null) {
+                p.nodes[index] = new TreeNode();
+                p.nodes[index].layer = p.layer + 1;
             }
-            p = p.tries[index];
+            p = p.nodes[index];
         }
         p.isEnd++;
     }
 
     // 完整匹配了 true
     public boolean search(String word) {
-        Trie p = searchPrefix(word);
+        TreeNode p = searchPrefix(word);
         if (p != null && p.layer == word.length() && p.isEnd > 0) {
             return true;
         }
@@ -78,19 +85,19 @@ class Trie {
 
     // 如果已经有这个前缀 true
     public boolean startsWith(String prefix) {
-        Trie p = searchPrefix(prefix);
+        TreeNode p = searchPrefix(prefix);
         if (p != null && p.layer == prefix.length()) {
             return true;
         }
         return false;
     }
 
-    public Trie searchPrefix(String prefix) {
-        Trie p = this;
+    public TreeNode searchPrefix(String prefix) {
+        TreeNode p = root;
         for (int i = 0; i < prefix.length(); i++) {
             int index = prefix.charAt(i) - 'a';
-            if (p.tries[index] != null) {
-                p = p.tries[index];
+            if (p.nodes[index] != null) {
+                p = p.nodes[index];
             } else {
                 return null;
             }

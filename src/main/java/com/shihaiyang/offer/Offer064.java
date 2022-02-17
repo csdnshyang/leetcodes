@@ -5,6 +5,9 @@ package com.shihaiyang.offer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。
  * 如果给出一个单词，请判定能否只将这个单词中一个字母换成另一个字母，使得所形成的新单词存在于已构建的神奇字典中。
@@ -48,17 +51,35 @@ public class Offer064 {
  * <p>
  * ---
  * 遗漏了一个。
+ * ---
+ * 能判断完成的条件
+ * 1. 当已经到达匹配串最后字符
+ *      如果字典串也是最后一个字符，且修改过一次。  true
+ *      如果字典串不是最后一个字符。  false
+ * 2. 如果已经修改过一次
+ *      且又出现不匹配情况。   false
+ *      否则递归到下一个匹配串的字符
+ * 3. 如果修改过0次
+ *      需要匹配所有的存在的字符，如果遍历到一次true，直接返回true
+ *          如果能匹配，递归到下一个字符，修改次数不变
+ *          如果不能匹配，递归到下一个字符，修改次数+1
+ *      遍历结束，说明没有匹配到   返回false
+ *
+ * 代码写的好多if，不知道能不能优化掉一些。
  */
 class MagicDictionary {
     MagicNode root;
+    Set<Integer> counts;
 
     public MagicDictionary() {
         root = new MagicNode();
+        counts = new HashSet<>();
     }
 
     public void buildDict(String[] dictionary) {
         for (int i = 0; i < dictionary.length; i++) {
             MagicNode p = root;
+            counts.add(dictionary[i].length());
             char[] chars = dictionary[i].toCharArray();
             for (int j = 0; j < chars.length; j++) {
                 int index = chars[j] - 'a';
@@ -72,6 +93,9 @@ class MagicDictionary {
     }
 
     public boolean search(String searchWord) {
+        if (!counts.contains(searchWord.length())) {
+            return false;
+        }
         char[] chars = searchWord.toCharArray();
         MagicNode p = root;
         boolean dfs = dfs(p, chars, 0, 0);

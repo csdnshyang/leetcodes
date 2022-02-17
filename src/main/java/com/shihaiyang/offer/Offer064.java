@@ -1,12 +1,11 @@
 package com.shihaiyang.offer;
 
-// Offer II 064. 神奇的字典.[前缀树 30ms].
+// Offer II 064. 神奇的字典.[暴力 21ms 前缀树 30ms].
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。
@@ -21,7 +20,7 @@ import java.util.Set;
 public class Offer064 {
     @Test
     public void case1() {
-        MagicDictionary magicDictionary = new MagicDictionary();
+        MagicDictionaryViolent magicDictionary = new MagicDictionaryViolent();
         magicDictionary.buildDict(new String[]{"hello", "leetcode"});
         Assertions.assertTrue(!magicDictionary.search("hello")); // 返回 False
         Assertions.assertTrue(magicDictionary.search("hhllo")); // 将第二个 'h' 替换为 'e' 可以匹配 "hello" ，所以返回 True
@@ -31,7 +30,7 @@ public class Offer064 {
 
     @Test
     public void case2() {
-        MagicDictionary magicDictionary = new MagicDictionary();
+        MagicDictionaryViolent magicDictionary = new MagicDictionaryViolent();
         magicDictionary.buildDict(new String[]{"hello", "hallo", "leetcode"});
         Assertions.assertTrue(magicDictionary.search("hello")); // 返回 True
         Assertions.assertTrue(magicDictionary.search("hhllo")); // 将第二个 'h' 替换为 'e' 可以匹配 "hello" ，所以返回 True
@@ -147,5 +146,43 @@ class MagicDictionary {
 
         public MagicNode() {
         }
+    }
+}
+
+class MagicDictionaryViolent {
+    String[] dict;
+    public MagicDictionaryViolent() {
+    }
+
+    public void buildDict(String[] dictionary) {
+        dict = dictionary;
+    }
+
+    public boolean search(String searchWord) {
+        for (int i = 0; i < dict.length; i++) {
+            boolean ret = diff(searchWord, dict[i]);
+            if (ret) return ret;
+        }
+        return false;
+    }
+
+    private boolean diff(String searchWord, String dict) {
+        if (dict.length() != searchWord.length()) {
+            return false;
+        }
+        char[] chars = searchWord.toCharArray();
+        char[] chars1 = dict.toCharArray();
+        int cnt = 0;
+        for (int j = 0; j < searchWord.length(); j++) {
+            if (chars[j] != chars1[j]) {
+                if (++cnt > 1) {
+                    return false;
+                }
+            }
+        }
+        if (cnt == 1) {
+            return true;
+        }
+        return false;
     }
 }

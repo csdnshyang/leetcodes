@@ -49,8 +49,10 @@ class SolutionOffer068 {
         while (left < right) {
             int mid = (left + right) >> 1;
             if (nums[mid] < target) {
+                // mid+1..right
                 left = mid + 1;
             } else if (nums[mid] > target) {
+                // left..mid
                 right = mid;
             } else {
                 return mid;

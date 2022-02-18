@@ -1,5 +1,5 @@
 package com.shihaiyang.daily;
-// 0688. 骑士在棋盘上的概率.[dfs+记忆化搜索 4ms].
+// 0688. 骑士在棋盘上的概率.[dfs+记忆化搜索 4ms/动态规划7ms].
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  * 输出: 1.00000
  */
 public class Leetcode0688 {
-    Solution0688 solution0688 = new Solution0688();
+    Solution0688Dp solution0688 = new Solution0688Dp();
 
     @Test
     public void case1() {
@@ -43,10 +43,53 @@ public class Leetcode0688 {
 }
 
 /**
+ * 计数类动态规划
+ * 1. 确认状态
+ *      最终状态   k步之后落在棋盘
+ *      化成子问题   8种 k-1步落在棋盘的概率之和就是k步落在棋盘的概率
+ * 2. 状态转移方程  k[i][j][k] = m*(k[i][j][k-1]/8)   8种情况中只有落在棋盘中的情况才有1/8的概率  所以有m个落在棋盘，就是m/8的概率
+ * 3. 初始状态  k[i][j][0] = 1  0步落在棋盘的i，j位置，概率为1.
+ * 4. 计算顺序  从k[i][j][0]  k[i][j][1] 开始计算。
+ *      原则，计算k步时，k-1步已经算出。
+ */
+class Solution0688Dp {
+    int n;
+    int[] xops = new int[]{1, 2, 2, 1, -1, -2, -2, -1};
+    int[] yops = new int[]{-2, -1, 1, 2, 2, 1, -1, -2};
+
+    public double knightProbability(int n, int k, int row, int column) {
+        this.n = n;
+        double[][][] memo = new double[n][n][k + 1];
+        // 初始化
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                memo[i][j][0] = 1;
+            }
+        }
+
+        for (int kk = 1; kk <= k; kk++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    for (int l = 0; l < 8; l++) {
+                        int x = i + xops[l];
+                        int y = j + yops[l];
+                        if (x >= 0 && x < n && y >= 0 && y < n) {
+                            memo[i][j][kk] += memo[x][y][kk-1] / 8.0;
+                        }
+                    }
+                }
+            }
+        }
+        return memo[row][column][k];
+    }
+}
+
+/**
  * 统计走完 k步所有在棋盘里的总数统计  / 8^k次
  * 暴力超时
  * 记忆化搜索：第k步重复走到nums[i][j]的位置的话，就直接返回。
  * ===
+ * 能不能算总步数，那样8的k次方很难算。可能有30次方...所以每次跳跃都是 1/8概率
  */
 class Solution0688 {
     int n;

@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PrimeNumberSolution {
 
     public static void main(String[] args) throws InterruptedException {
-        Integer count = 10000000;
+        Integer count = 100000;
         long start = System.currentTimeMillis();
         PrimeNumberContext singlePrime = new PrimeNumberContext(count);
         ExecutorService single = Executors.newSingleThreadExecutor();
@@ -24,7 +24,7 @@ public class PrimeNumberSolution {
         for (int i = 0; i < count; i++) {
             executorService.submit(new ComputePrime(multiPrime));
         }
-        multiPrime.countDownLatch.await();
+        multiPrime.countDownLatch.await(60, TimeUnit.SECONDS);
         executorService.shutdown();
         System.out.println(Runtime.getRuntime().availableProcessors() + "个线程用时：" + (System.currentTimeMillis() - start) + "(" + multiPrime.getNum() + " / " + multiPrime.getPrimeCount() + ")");
     }
@@ -72,18 +72,42 @@ class ComputePrime implements Runnable {
      */
     @Override
     public void run() {
-        if (checkNum(primeNumber.getNum())) {
+        if (checkNumBinary(primeNumber.getNum())) {
             primeNumber.addPrime();
         }
         primeNumber.decreaseLatch();
     }
 
-    public boolean checkNum(int num) {
+    /**
+     * 这个二分的效率太高，导致单线程计算都很快。
+     * @param num
+     * @return
+     */
+    public boolean checkNumBinary(int num) {
         int limit = (int) Math.sqrt(num);
         for (int i = 2; i <= limit; i++) {
             if (num % i == 0) return false;
         }
         return true;
+    }
+
+    /**
+     * 这个CPU消耗大一点，多CPU能看出差距
+     * @param num
+     * @return
+     */
+    public boolean checkNum(int num) {
+        for (int i = num - 1; i >= 1; i--) {
+            int gcd = gcd(num, i);
+            if (gcd != 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
     }
 }
 

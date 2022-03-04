@@ -45,7 +45,7 @@ backTrace的条件：如果执行完最后一个，发现有楼 != 0，那说明
  */
 class Solution1601BackTrace {
     public int maximumRequests(int n, int[][] requests) {
-
+        return 0;
     }
 
     private void backTrace() {

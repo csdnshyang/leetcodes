@@ -41,8 +41,10 @@ class Solution0440 {
 
     int getCnt(int x, int limit) {
         String a = String.valueOf(x), b = String.valueOf(limit);
-        int n = a.length(), m = b.length(), k = m - n;
-        int ans = 0, u = Integer.parseInt(b.substring(0, n));
+        int n = a.length(), m = b.length();
+        int k = m - n;
+        int ans = 0;
+        int u = Integer.parseInt(b.substring(0, n));
         for (int i = 0; i < k; i++) {
             ans += Math.pow(10, i);
         }
